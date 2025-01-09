@@ -44,4 +44,11 @@ public class Car {
         this.category = category;
     }
 
+    // Methods
+
+    public void breakCar(String brand){
+        this.brand = brand;
+        System.out.println("Car" + brand + " is broken");
+    }
+
 }
