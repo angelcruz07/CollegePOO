@@ -4,10 +4,18 @@ public class Car {
     public String color = null;
     public String category = null;
 
+    // Constructor
     public Car(){
         this.brand = "Brand not defined";
         this.color = "Color not defined";
         this.category = "Category not defined";
+    }
+
+    //Constructor with parameters
+    public Car(String brand, String color, String category){
+        this.brand = brand;
+        this.color = color;
+        this.category = category;
     }
 
     public String getBrand() {
