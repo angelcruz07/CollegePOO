@@ -18,6 +18,8 @@ public class Car {
         this.category = category;
     }
 
+    //Si tenemos dos constructores se le llama sobrecarga
+
     public String getBrand() {
         return brand;
     }

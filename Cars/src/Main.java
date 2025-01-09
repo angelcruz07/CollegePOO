@@ -6,6 +6,7 @@ public class Main {
         toyota.setColor("Black");
         toyota.setCategory("Sport");
 
+        Car nissan = new Car("Nissan", "Red", "Sedan");
 
         System.out.println("Brand: " + toyota.getBrand());
         System.out.println("Color: " + toyota.getColor());
