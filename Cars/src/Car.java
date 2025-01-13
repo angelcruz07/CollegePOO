@@ -48,7 +48,7 @@ public class Car {
 
     public void breakCar(String brand){
         this.brand = brand;
-        System.out.println("Car" + brand + " is broken");
+        System.out.println("Frenando un: " + brand);
     }
 
 }
