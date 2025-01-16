@@ -1,11 +1,15 @@
+/**
+ *
+ * @author Angel Cruz 1/15/25
+ */
 public class Account {
     //Properties
-    public String titular = null;
-    public int saldo = 0;
+    private String titular = null;
+    private int saldo = 0;
 
     public Account(){
-        this.titular = "Not defined";
-        this.saldo = 1000;
+        this.titular = null;
+        this.saldo = 0;
     }
 
     public Account(String titular, int saldo){
@@ -21,7 +25,7 @@ public class Account {
         this.titular = titular;
     }
 
-    public double getSaldo() {
+    public int getSaldo() {
         return saldo;
     }
 
@@ -33,11 +37,15 @@ public class Account {
         this.saldo += cantidadDeposito;
     }
 
-    public void retirar(int cantidadRetiro) {
-        if(this.saldo < cantidadRetiro){
-            System.out.println("Saldo insuficiente");
-        }else {
+    public boolean retirar(int cantidadRetiro) {
+        boolean resp = false;
+        
+        if(this.saldo >= cantidadRetiro){
             this.saldo -= cantidadRetiro;
+            resp = true;
         }
+        
+        return resp;
     }
 }
+

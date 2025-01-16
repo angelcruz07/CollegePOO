@@ -1,9 +1,3 @@
-### IntelliJ IDEA ###
-out/
-!**/src/main/**/out/
-!**/src/test/**/out/
-
-### Eclipse ###
 .apt_generated
 .classpath
 .factorypath
@@ -17,13 +11,19 @@ bin/
 
 ### NetBeans ###
 /nbproject/private/
+/nbproject/
 /nbbuild/
 /dist/
 /nbdist/
 /.nb-gradle/
+/build
+/production
 
 ### VS Code ###
 .vscode/
 
 ### Mac OS ###
 .DS_Store
+
+## Intellij IDEA ##
+.idea/
