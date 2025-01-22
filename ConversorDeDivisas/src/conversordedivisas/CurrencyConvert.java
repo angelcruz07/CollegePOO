@@ -29,17 +29,17 @@ class CurrencyConvert {
 
     // USD a MXN
     public double usdToMxn(double amount) {
-        return amount / mxnToUsdRate;
+        return amount * mxnToUsdRate;
     }
 
     // MXN a EUR
     public double mxnToEur(double amount) {
-        return amount * mxnToEurRate;
+        return amount / mxnToEurRate;
     }
 
     // EUR a MXN
     public double eurToMxn(double amount) {
-        return amount / mxnToEurRate;
+        return amount * mxnToEurRate;
     }
     
     
