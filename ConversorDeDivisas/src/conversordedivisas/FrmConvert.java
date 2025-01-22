@@ -13,23 +13,36 @@ public class FrmConvert extends javax.swing.JFrame {
     private Currency usd;
     private Currency mxn;
     private Currency eur;
+    private Currency yen;
+    
+    void mostrarTable(){
+        deMoneda.addItem("MXN");
+        deMoneda.addItem("USA");
+        deMoneda.addItem("EUR");
+        deMoneda.addItem("YEN");
+    }
 
     /**
      * Creates new form FrmConvert
      */
     public FrmConvert() {
+        //Inizializar monedas disponibles
         usd = new Currency("USD", "$", "United States");
         eur = new Currency("EUR","€", "Eurozone" );
         mxn = new Currency("MXN", "$", "Mexico");
+        yen = new Currency("YEN", "¥", "Japan");
         
-        
-        convert = new CurrencyConvert(20.65, 21.50, 0.96);
+        convert = new CurrencyConvert(20.65, 21.50, 0.96, 8);
         
         initComponents();
         this.setTitle("Conversor de divisas");
         this.setLocationRelativeTo(null);
         Image icon = Toolkit.getDefaultToolkit().getImage(getClass().getResource("/img/mxn.png"));
         this.setIconImage(icon); 
+        iconMXN.setVisible(true);
+        iconUSA.setVisible(false);
+        iconEUR.setVisible(false);
+        iconYEN.setVisible(false);
     }
 
     /**
@@ -48,85 +61,76 @@ public class FrmConvert extends javax.swing.JFrame {
         aMoneda = new javax.swing.JComboBox<>();
         txtDe = new javax.swing.JLabel();
         txtA = new javax.swing.JLabel();
+        iconUSA = new javax.swing.JLabel();
+        iconMXN = new javax.swing.JLabel();
+        iconEUR = new javax.swing.JLabel();
+        iconYEN = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setBackground(new java.awt.Color(153, 153, 255));
+        getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        txtImporte.setText("Importe");
+        txtImporte.setText("Importe:");
+        txtImporte.setOpaque(true);
+        getContentPane().add(txtImporte, new org.netbeans.lib.awtextra.AbsoluteConstraints(21, 35, -1, -1));
 
         txtCantidad.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtCantidadActionPerformed(evt);
             }
         });
+        getContentPane().add(txtCantidad, new org.netbeans.lib.awtextra.AbsoluteConstraints(21, 57, 330, -1));
 
         btnConvertir.setBackground(new java.awt.Color(102, 102, 255));
         btnConvertir.setForeground(new java.awt.Color(255, 255, 255));
         btnConvertir.setText("Convertir");
+        btnConvertir.setBorder(null);
         btnConvertir.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnConvertirActionPerformed(evt);
             }
         });
+        getContentPane().add(btnConvertir, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 250, 90, 30));
 
-        deMoneda.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "MXN / Peso Mexicano", "EUR / Zona Europea", "USD / Estados Unidos" }));
+        deMoneda.setForeground(new java.awt.Color(153, 255, 153));
+        deMoneda.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "MXN / Pesos Mexicanos", "EUR / Zona Europea", "USD / Estados Unidos", "YEN / Yen japones" }));
+        deMoneda.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                deMonedaItemStateChanged(evt);
+            }
+        });
         deMoneda.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 deMonedaActionPerformed(evt);
             }
         });
+        getContentPane().add(deMoneda, new org.netbeans.lib.awtextra.AbsoluteConstraints(81, 107, 270, 50));
 
-        aMoneda.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "MXN / Peso Mexicano", "EUR / Zona Europea", "USD / Estados Unidos" }));
+        aMoneda.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "MXN / Peso Mexicano", "EUR / Zona Europea", "USD / Estados Unidos", "YEN / Yen Japones" }));
         aMoneda.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 aMonedaActionPerformed(evt);
             }
         });
+        getContentPane().add(aMoneda, new org.netbeans.lib.awtextra.AbsoluteConstraints(81, 184, 270, 50));
 
         txtDe.setText("De:");
+        getContentPane().add(txtDe, new org.netbeans.lib.awtextra.AbsoluteConstraints(21, 85, -1, -1));
 
         txtA.setText("A: ");
+        getContentPane().add(txtA, new org.netbeans.lib.awtextra.AbsoluteConstraints(21, 163, -1, -1));
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(0, 71, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(txtA)
-                            .addComponent(txtDe)
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                .addComponent(txtImporte)
-                                .addComponent(txtCantidad)
-                                .addComponent(deMoneda, 0, 280, Short.MAX_VALUE)
-                                .addComponent(aMoneda, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                        .addGap(49, 49, 49))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(btnConvertir)
-                        .addGap(158, 158, 158))))
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(35, 35, 35)
-                .addComponent(txtImporte)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(txtCantidad, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 7, Short.MAX_VALUE)
-                .addComponent(txtDe)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(deMoneda, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(txtA)
-                .addGap(5, 5, 5)
-                .addComponent(aMoneda, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(30, 30, 30)
-                .addComponent(btnConvertir)
-                .addGap(42, 42, 42))
-        );
+        iconUSA.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/usa.png"))); // NOI18N
+        getContentPane().add(iconUSA, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 110, 50, 50));
+
+        iconMXN.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/mxn.png"))); // NOI18N
+        getContentPane().add(iconMXN, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 110, -1, -1));
+
+        iconEUR.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/eur.png"))); // NOI18N
+        getContentPane().add(iconEUR, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 110, 50, 50));
+
+        iconYEN.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/japon.png"))); // NOI18N
+        getContentPane().add(iconYEN, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 110, 50, 50));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -150,7 +154,8 @@ public class FrmConvert extends javax.swing.JFrame {
         try {
             amount = Double.parseDouble(amountTxt);
         }catch (NumberFormatException e) {
-            JOptionPane.showMessageDialog(this, "Por favor ingresa una cantidad válida");
+            JOptionPane.showMessageDialog(this, "Por favor ingresa una cantidad válida","Error", JOptionPane.ERROR_MESSAGE);
+            txtCantidad.setText("");
             return;
         } 
         
@@ -158,8 +163,8 @@ public class FrmConvert extends javax.swing.JFrame {
         String divisaOrigin  = (String) deMoneda.getSelectedItem();
         String divisaDestino = (String) aMoneda.getSelectedItem();
         
-        String abrevOrigin = divisaOrigin.split(" / ")[0].trim();
-        String abrevDestino = divisaDestino.split(" / ")[0].trim();
+        String abrevOrigin = getAbreviatura(divisaOrigin);
+        String abrevDestino = getAbreviatura(divisaDestino);
         
         double resultado = 0; 
         
@@ -170,19 +175,25 @@ public class FrmConvert extends javax.swing.JFrame {
                 resultado = convert.mxnToUsd(amount);
                 break;
             case "MXN_EUR":
-                resultado = convert.eurToMxn(amount);
+                resultado = convert.mxnToEur(amount);
                 break;
             case "USD_MXN":
                 resultado = convert.usdToMxn(amount);
                 break;
             case "EUR_MXN":
-                resultado = convert.usdToEur(amount);
+                resultado = convert.eurToMxn(amount);
                 break;
             case "EUR_USD":
                 resultado = convert.eurToUsd(amount);
                 break;
             case "USD_EUR":
                 resultado = convert.usdToEur(amount);
+                break;
+            case "MXN_YEN":
+                resultado = convert.mxnToYen(amount);
+                break;
+            case "YEN_MXN": 
+                resultado = convert.yenToMxn(amount);
                 break;
             default: 
                 JOptionPane.showMessageDialog(this,"No soportamos este tipo de conversión", "Error", JOptionPane.ERROR_MESSAGE);
@@ -191,6 +202,33 @@ public class FrmConvert extends javax.swing.JFrame {
         txtCantidad.setText("");
         JOptionPane.showMessageDialog(this, String.format("Resultado: %.2f %s", resultado, abrevDestino), "Conversión exitosa", JOptionPane.INFORMATION_MESSAGE);
     }//GEN-LAST:event_btnConvertirActionPerformed
+
+    private String getAbreviatura(String divisa) {
+        return divisa.split(" / ")[0].trim();
+    }
+    
+    private void deMonedaItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_deMonedaItemStateChanged
+       
+    String divisaOrigin  = (String) deMoneda.getSelectedItem();
+    String divisaDestino = (String) aMoneda.getSelectedItem();
+    
+    String abrevOrigin = getAbreviatura(divisaOrigin);
+    String abrevDestino = getAbreviatura(divisaDestino);
+   
+    // Comprueba si ambas abreviaturas coinciden
+    if(abrevOrigin.equals("MXN")) {
+        iconMXN.setVisible(true);  
+        iconUSA.setVisible(false);
+        iconEUR.setVisible(false);
+    } else if (abrevOrigin.equals("USD")) {
+        iconUSA.setVisible(true); 
+        iconMXN.setVisible(false);
+        iconEUR.setVisible(false);
+    } else if (abrevOrigin.equals("EUR"))
+        iconEUR.setVisible(true);
+        iconUSA.setVisible(false); 
+        iconMXN.setVisible(false);
+    }//GEN-LAST:event_deMonedaItemStateChanged
 
     /**
      * @param args the command line arguments
@@ -231,6 +269,10 @@ public class FrmConvert extends javax.swing.JFrame {
     private javax.swing.JComboBox<String> aMoneda;
     private javax.swing.JButton btnConvertir;
     private javax.swing.JComboBox<String> deMoneda;
+    private javax.swing.JLabel iconEUR;
+    private javax.swing.JLabel iconMXN;
+    private javax.swing.JLabel iconUSA;
+    private javax.swing.JLabel iconYEN;
     private javax.swing.JLabel txtA;
     private javax.swing.JTextField txtCantidad;
     private javax.swing.JLabel txtDe;
