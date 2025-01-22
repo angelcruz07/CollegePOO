@@ -1,6 +1,5 @@
 package conversordedivisas;
 
-
 public class Currency {
   // Propeties of currency
   // Uso de encapsilamiento
