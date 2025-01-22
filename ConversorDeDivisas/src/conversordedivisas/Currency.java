@@ -1,3 +1,6 @@
+package conversordedivisas;
+
+
 public class Currency {
   // Propeties of currency
   // Uso de encapsilamiento
@@ -8,7 +11,9 @@ public class Currency {
   // Define constructor
   // Constructor empty
   public Currency() {
-
+      this.name = "MXN";
+      this.symbol = "$";
+      this.country = "Mexico"; 
   }
 
   // Constructor with parameters

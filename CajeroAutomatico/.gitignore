@@ -27,3 +27,4 @@ bin/
 
 ## Intellij IDEA ##
 .idea/
+out/

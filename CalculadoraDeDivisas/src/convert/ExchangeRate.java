@@ -1,3 +1,5 @@
+package convert;
+
 class ExchangeRate {
   Currency fromCurrency;
   Currency toCurrency;

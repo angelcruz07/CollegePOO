@@ -1,3 +1,5 @@
+package convert;
+
 class CurrencyConvert {
   // Word Final indicate the valor for this property, is not modifiable after the
   // create object
