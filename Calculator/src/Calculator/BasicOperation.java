@@ -6,7 +6,7 @@ public class BasicOperation extends Operation {
     ADD, SUBTRACT, MULTIPLY, DIVIDE
   }
 
-  private OperationType operationType;
+  private final OperationType operationType;
 
   public BasicOperation(double num1, double num2, OperationType operationType) {
     super(num1, num2);
