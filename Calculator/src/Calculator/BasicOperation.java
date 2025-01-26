@@ -16,20 +16,11 @@ public class BasicOperation extends Operation {
   @Override
   public void calculate() {
     switch (operationType) {
-      case ADD:
-        setResult(add(num1, num2));
-        break;
-      case SUBTRACT:
-        setResult(subtract(num1, num2));
-        break;
-      case MULTIPLY:
-        setResult(multiply(num1, num2));
-        break;
-      case DIVIDE:
-        setResult(divide(num1, num2));
-        break;
-      default:
-        throw new UnsupportedOperationException("Operación no soportada");
+      case ADD -> setResult(add(num1, num2));
+      case SUBTRACT -> setResult(subtract(num1, num2));
+      case MULTIPLY -> setResult(multiply(num1, num2));
+      case DIVIDE -> setResult(divide(num1, num2));
+      default -> throw new UnsupportedOperationException("Operación no soportada");
     }
   }
 
