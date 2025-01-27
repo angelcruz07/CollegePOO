@@ -10,11 +10,11 @@ public abstract class Operation {
   }
 
   public double getResult() {
-      return result;
+    return result;
   }
 
   protected void setResult(double result) {
-      this.result = result;
+    this.result = result;
   }
 
   // Método abstracto que debe ser implementado por las subclases
