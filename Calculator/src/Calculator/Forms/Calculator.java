@@ -1,10 +1,9 @@
 package Calculator.Forms;
 
-import Calculator.AvancedOperation;
+import Calculator.AdvancedOperation;
 import Calculator.BasicOperation;
 import java.awt.Image;
 import java.awt.Toolkit;
-import javax.swing.JOptionPane;
 import java.util.*;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -17,14 +16,8 @@ public class Calculator extends javax.swing.JFrame {
     setTitle("Calculadora");
     Image icon = Toolkit.getDefaultToolkit().getImage(getClass().getResource("/resources/iconoApp.jpg"));
     setIconImage(icon);
-    
   }
   
-  /*
-  * This function concat number in the fiel
-  *
-  */
-
   public void  appendNumberToTextField(String text){
       String currentText = txtOperation.getText();
       currentText += text;
@@ -33,15 +26,17 @@ public class Calculator extends javax.swing.JFrame {
   
   public void deleteNumberToTextField(){
       String currentText = txtOperation.getText();
+
       if(currentText.length() > 0){
          currentText = currentText.substring(0, currentText.length() - 1);
       }
-      
+
       txtOperation.setText(currentText);
   }
   
-   public double evaluateExpression(String expression) {
-    Pattern pattern = Pattern.compile("(-?\\d+(\\.\\d+)?|[+\\-x÷])");
+  public double evaluateExpression(String expression) {
+    Pattern pattern = Pattern.compile("(\\d+(\\.\\d+)?|[+\\-x÷√^!])");
+
     Matcher matcher = pattern.matcher(expression);
 
     List<String> tokens = new ArrayList<>();
@@ -52,23 +47,32 @@ public class Calculator extends javax.swing.JFrame {
     Stack<Double> values = new Stack<>();
     Stack<Character> operators = new Stack<>();
 
-    for (String token : tokens) {
-        if (isNumber(token)) {
-            values.push(Double.valueOf(token));
-        } else if (isOperator(token.charAt(0))) {
-            while (!operators.isEmpty() && hasPrecedence(token.charAt(0), operators.peek())) {
-                values.push(applyOperator(operators.pop(), values.pop(), values.pop()));
-            }
-            operators.push(token.charAt(0));
+  for (String token : tokens) {
+    if (isNumber(token)) {
+        values.push(Double.valueOf(token));
+    } else if (isOperator(token.charAt(0))) {
+        while (!operators.isEmpty() && hasPrecedence(token.charAt(0), operators.peek())) {
+            values.push(applyBasicOperator(operators.pop(), values.pop(), values.pop()));
         }
+      
+        operators.push(token.charAt(0));
+        
+    } else if (token.equals("^")) {
+        double exponent = values.pop();
+        double base = values.pop();
+        values.push(applyAdvancedOperator(token, base, exponent));
+    } else if (token.equals("!") || token.equals("√")) { 
+        double value = values.pop();
+        values.push(applyAdvancedOperator(token, value, 0)); 
     }
+}
 
     while (!operators.isEmpty()) {
-        values.push(applyOperator(operators.pop(), values.pop(), values.pop()));
+        values.push(applyBasicOperator(operators.pop(), values.pop(), values.pop()));
     }
 
     return values.pop();
-   }
+}
 
   private boolean isNumber(String token){
       try{
@@ -84,35 +88,59 @@ public class Calculator extends javax.swing.JFrame {
   }
   
   private boolean hasPrecedence(char op1, char op2) {
-        if (op2 == '(' || op2 == ')') return false;
-         
-        return !((op1 == 'x' || op1 == '÷') && (op2 == '+' || op2 == '-'));
-   }
+    if (op2 == '(' || op2 == ')') return false;
+    if (op1 == '^' && (op2 == '+' || op2 == '-' || op2 == 'x' || op2 == '÷')) return false;
+    return !((op1 == 'x' || op1 == '÷') && (op2 == '+' || op2 == '-'));
+}
 
-    private double applyOperator(char operator, double b, double a) {
-        BasicOperation.OperationType operationType;
-        
-        switch (operator) {
-            case '+' -> operationType = BasicOperation.OperationType.ADD;
-            case '-' -> operationType = BasicOperation.OperationType.SUBTRACT;
-            case 'x' -> operationType = BasicOperation.OperationType.MULTIPLY;
-            case '÷' -> operationType = BasicOperation.OperationType.DIVIDE;
-            case '!' -> operationType = BasicOperation.OperationType.FACTORIAL;
-            case '√' -> operationType = BasicOperation.OperationType.SQUARE_ROOT;
-            case '^' -> operationType = BasicOperation.OperationType.POWER;
-            default -> throw new UnsupportedOperationException("Operador no soportado: " + operator);
-        }
-          if (operationType == BasicOperation.OperationType.POWER) {
-            BasicOperation operacion = new BasicOperation(a, b, b, operationType);
-            operacion.calculate();
-            return operacion.getResult();
-        } else {
-            BasicOperation operacion = new BasicOperation(a, b, operationType);
-            operacion.calculate();
-            return operacion.getResult();
-        }
+private double applyBasicOperator(char operator, double b, double a) {
+    BasicOperation.OperationType operationType;
+
+    switch (operator) {
+        case '+' -> operationType = BasicOperation.OperationType.ADD;
+        case '-' -> operationType = BasicOperation.OperationType.SUBTRACT;
+        case 'x' -> operationType = BasicOperation.OperationType.MULTIPLY;
+        case '÷' -> operationType = BasicOperation.OperationType.DIVIDE;
+        default -> throw new UnsupportedOperationException("Operador basico no soportado: " + operator);
     }
- 
+
+    BasicOperation operation = new BasicOperation(a, b, operationType);
+    operation.calculate();
+    return operation.getResult();
+}
+
+    private double applyAdvancedOperator(String operator, double base, double exponent) {
+    AdvancedOperation.OperationType operationType;
+    
+    switch (operator) {
+        case "!" -> operationType = AdvancedOperation.OperationType.FACTORIAL;
+        case "√" -> operationType = AdvancedOperation.OperationType.SQUARE_ROOT;
+        case "^" -> operationType = AdvancedOperation.OperationType.POWER;
+        default -> throw new UnsupportedOperationException("Operador avanzado no soportado: " + operator);
+    }
+
+    AdvancedOperation advancedOperation = new AdvancedOperation(base, exponent, operationType);
+    advancedOperation.calculate();
+    return advancedOperation.getResult();
+ }
+
+    // Método principal de ejecución que decide qué operación aplicar
+    public double calculate(char operator, double a, double b) {
+        System.out.println(operator);
+        switch (operator) {
+        case '+', '-', 'x', '÷' -> {
+            return applyBasicOperator(operator, a, b);
+        }
+        case '^' -> {
+            return applyAdvancedOperator(String.valueOf(operator), a, b);
+        }
+        case '!', '√' -> {
+            return applyAdvancedOperator(String.valueOf(operator), a, 0);
+        }
+        default -> throw new UnsupportedOperationException("Operador no soportado en el método calculate: " + operator);
+     }
+    }
+
   @SuppressWarnings("unchecked")
   // <editor-fold defaultstate="collapsed" desc="Generated
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
@@ -144,6 +172,7 @@ public class Calculator extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setAutoRequestFocus(false);
         setBackground(new java.awt.Color(40, 56, 55));
+        setResizable(false);
 
         txtOperation.setEditable(false);
         txtOperation.setHorizontalAlignment(javax.swing.JTextField.CENTER);
@@ -332,44 +361,41 @@ public class Calculator extends javax.swing.JFrame {
                                 .addComponent(btnEqual, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addComponent(btnPlus, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                .addComponent(btn4, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(6, 6, 6)
+                                .addComponent(btn5, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, 6)
+                                .addComponent(btn6, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(btnMulti, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(btn7, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(btnFact, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(btnPower, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(btnRaiz, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                                    .addComponent(btn8, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(btn9, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(btnDeleteAll, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addComponent(btn4, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addGap(6, 6, 6)
-                                        .addComponent(btn5, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, 6)
-                                        .addComponent(btn6, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                        .addComponent(btnMulti, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addGroup(javax.swing.GroupLayout.Alignment.CENTER, layout.createSequentialGroup()
-                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addComponent(btn7, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                            .addComponent(btnFact, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                            .addComponent(btnRaiz, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
-                                            .addComponent(btn8, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addComponent(btn9, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                            .addComponent(btnDeleteAll, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                            .addComponent(btnDiv, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                            .addComponent(btnDel, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                            .addComponent(btnPower, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
-                                        .addComponent(btn1, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                            .addComponent(btn2, javax.swing.GroupLayout.DEFAULT_SIZE, 40, Short.MAX_VALUE)
-                                            .addComponent(btnDot, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, 6)
-                                        .addComponent(btn3, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                        .addComponent(btnMinus, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                                .addGap(0, 0, Short.MAX_VALUE)))))
+                                    .addComponent(btnDiv, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(btnDel, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                                .addComponent(btn1, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(btn2, javax.swing.GroupLayout.DEFAULT_SIZE, 40, Short.MAX_VALUE)
+                                    .addComponent(btnDot, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, 6)
+                                .addComponent(btn3, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(btnMinus, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)))))
                 .addGap(50, 50, 50))
         );
         layout.setVerticalGroup(
@@ -499,13 +525,13 @@ public class Calculator extends javax.swing.JFrame {
     }//GEN-LAST:event_btnFactActionPerformed
 
     private void btnEqualActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEqualActionPerformed
-    try {
-         String input = txtOperation.getText();
-         double result = evaluateExpression(input);
-         txtOperation.setText(String.valueOf(result));
-     } catch (Exception ex) {
-         JOptionPane.showMessageDialog(null, "Error: " + ex.getMessage());
-     }           
+        try {
+            String expression = txtOperation.getText(); // Captura la expresión ingresada
+            double result = evaluateExpression(expression); // Calcula el resultado
+            txtOperation.setText(String.valueOf(result)); // Muestra el resultado
+        } catch (Exception ex) {
+            txtOperation.setText("Error: " + ex.getMessage()); // Muestra errores si hay
+        }       
     }//GEN-LAST:event_btnEqualActionPerformed
 
     private void btnPowerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPowerActionPerformed

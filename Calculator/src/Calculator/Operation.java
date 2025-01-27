@@ -5,18 +5,18 @@ public abstract class Operation {
   protected double num2;
   protected double result;
 
-  public Operation(double num1, double num2) {
-    this.num1 = num1;
-    this.num2 = num2;
+  public Operation() {
+
   }
 
   public double getResult() {
-    return result;
+      return result;
   }
 
-  public void setResult(double result) {
-    this.result = result;
+  protected void setResult(double result) {
+      this.result = result;
   }
 
+  // Método abstracto que debe ser implementado por las subclases
   public abstract void calculate();
 }

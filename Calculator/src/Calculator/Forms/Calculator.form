@@ -7,6 +7,7 @@
     <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
       <Color blue="37" green="38" red="28" type="rgb"/>
     </Property>
+    <Property name="resizable" type="boolean" value="false"/>
   </Properties>
   <SyntheticProperties>
     <SyntheticProperty name="formSizePolicy" type="int" value="1"/>
@@ -43,53 +44,48 @@
                               <EmptySpace max="32767" attributes="0"/>
                               <Component id="btnPlus" min="-2" pref="40" max="-2" attributes="0"/>
                           </Group>
-                          <Group type="102" alignment="0" attributes="0">
-                              <Group type="103" groupAlignment="1" attributes="0">
-                                  <Group type="102" attributes="0">
-                                      <Component id="btn4" min="-2" pref="40" max="-2" attributes="0"/>
-                                      <EmptySpace min="6" pref="6" max="6" attributes="0"/>
-                                      <Component id="btn5" min="-2" pref="40" max="-2" attributes="0"/>
-                                      <EmptySpace min="6" max="6" attributes="0"/>
-                                      <Component id="btn6" min="-2" pref="40" max="-2" attributes="0"/>
-                                      <EmptySpace max="32767" attributes="0"/>
-                                      <Component id="btnMulti" min="-2" pref="40" max="-2" attributes="0"/>
-                                  </Group>
-                                  <Group type="102" alignment="2" attributes="0">
-                                      <Group type="103" groupAlignment="0" attributes="0">
-                                          <Component id="btn7" alignment="0" min="-2" pref="40" max="-2" attributes="0"/>
-                                          <Component id="btnFact" alignment="0" min="-2" pref="39" max="-2" attributes="0"/>
-                                      </Group>
-                                      <EmptySpace max="-2" attributes="0"/>
-                                      <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                                          <Component id="btnRaiz" pref="0" max="32767" attributes="0"/>
-                                          <Component id="btn8" min="-2" pref="40" max="-2" attributes="0"/>
-                                      </Group>
-                                      <EmptySpace max="-2" attributes="0"/>
-                                      <Group type="103" groupAlignment="0" attributes="0">
-                                          <Component id="btn9" alignment="0" min="-2" pref="40" max="-2" attributes="0"/>
-                                          <Component id="btnDeleteAll" alignment="1" min="-2" pref="40" max="-2" attributes="0"/>
-                                      </Group>
-                                      <EmptySpace max="-2" attributes="0"/>
-                                      <Group type="103" groupAlignment="1" attributes="0">
-                                          <Component id="btnDiv" min="-2" pref="40" max="-2" attributes="0"/>
-                                          <Component id="btnDel" min="-2" pref="40" max="-2" attributes="0"/>
-                                          <Component id="btnPower" alignment="1" min="-2" pref="40" max="-2" attributes="0"/>
-                                      </Group>
-                                  </Group>
-                                  <Group type="102" alignment="0" attributes="0">
-                                      <Component id="btn1" min="-2" pref="40" max="-2" attributes="0"/>
-                                      <EmptySpace max="-2" attributes="0"/>
-                                      <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                                          <Component id="btn2" pref="40" max="32767" attributes="0"/>
-                                          <Component id="btnDot" max="32767" attributes="0"/>
-                                      </Group>
-                                      <EmptySpace min="6" max="6" attributes="0"/>
-                                      <Component id="btn3" min="-2" pref="40" max="-2" attributes="0"/>
-                                      <EmptySpace max="32767" attributes="0"/>
-                                      <Component id="btnMinus" min="-2" pref="40" max="-2" attributes="0"/>
-                                  </Group>
+                          <Group type="102" alignment="1" attributes="0">
+                              <Component id="btn4" min="-2" pref="40" max="-2" attributes="0"/>
+                              <EmptySpace min="6" pref="6" max="6" attributes="0"/>
+                              <Component id="btn5" min="-2" pref="40" max="-2" attributes="0"/>
+                              <EmptySpace min="6" max="6" attributes="0"/>
+                              <Component id="btn6" min="-2" pref="40" max="-2" attributes="0"/>
+                              <EmptySpace max="32767" attributes="0"/>
+                              <Component id="btnMulti" min="-2" pref="40" max="-2" attributes="0"/>
+                          </Group>
+                          <Group type="102" alignment="2" attributes="0">
+                              <Group type="103" groupAlignment="0" attributes="0">
+                                  <Component id="btn7" alignment="0" min="-2" pref="40" max="-2" attributes="0"/>
+                                  <Component id="btnFact" alignment="0" min="-2" pref="39" max="-2" attributes="0"/>
+                                  <Component id="btnPower" alignment="0" min="-2" pref="40" max="-2" attributes="0"/>
                               </Group>
-                              <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+                              <EmptySpace max="-2" attributes="0"/>
+                              <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                                  <Component id="btnRaiz" pref="0" max="32767" attributes="0"/>
+                                  <Component id="btn8" min="-2" pref="40" max="-2" attributes="0"/>
+                              </Group>
+                              <EmptySpace max="-2" attributes="0"/>
+                              <Group type="103" groupAlignment="0" attributes="0">
+                                  <Component id="btn9" alignment="0" min="-2" pref="40" max="-2" attributes="0"/>
+                                  <Component id="btnDeleteAll" alignment="1" min="-2" pref="40" max="-2" attributes="0"/>
+                              </Group>
+                              <EmptySpace max="-2" attributes="0"/>
+                              <Group type="103" groupAlignment="1" attributes="0">
+                                  <Component id="btnDiv" min="-2" pref="40" max="-2" attributes="0"/>
+                                  <Component id="btnDel" min="-2" pref="40" max="-2" attributes="0"/>
+                              </Group>
+                          </Group>
+                          <Group type="102" alignment="0" attributes="0">
+                              <Component id="btn1" min="-2" pref="40" max="-2" attributes="0"/>
+                              <EmptySpace max="-2" attributes="0"/>
+                              <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                                  <Component id="btn2" pref="40" max="32767" attributes="0"/>
+                                  <Component id="btnDot" max="32767" attributes="0"/>
+                              </Group>
+                              <EmptySpace min="6" max="6" attributes="0"/>
+                              <Component id="btn3" min="-2" pref="40" max="-2" attributes="0"/>
+                              <EmptySpace max="32767" attributes="0"/>
+                              <Component id="btnMinus" min="-2" pref="40" max="-2" attributes="0"/>
                           </Group>
                       </Group>
                   </Group>
