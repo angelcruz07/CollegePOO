@@ -24,6 +24,7 @@ public class CalculatorFrm extends javax.swing.JFrame {
   public void calculate(String expression) {
     StringTokenizer tokenizer = new StringTokenizer(expression, "+-x÷√^!", true);
     BasicOperation operation = new BasicOperation();
+    
     double result = 0;
 
     int tokenCount = tokenizer.countTokens();
