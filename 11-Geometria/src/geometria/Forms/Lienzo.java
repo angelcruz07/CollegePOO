@@ -92,8 +92,7 @@ public class Lienzo extends javax.swing.JFrame {
     pack();
   }// </editor-fold>//GEN-END:initComponents
 
-  private void btnDrawActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_btnDrawActionPerformed
-
+  private void btnDrawActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_btnDrawActionPerforme
     quantityLines = Integer.parseInt(txtQuantity.getText());
     drawMultiLines(quantityLines);
 
