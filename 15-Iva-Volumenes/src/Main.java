@@ -1,4 +1,4 @@
-import Forms.Menu;
+import forms.Menu;
 
 public class Main {
     public static void main(String[] args) {
