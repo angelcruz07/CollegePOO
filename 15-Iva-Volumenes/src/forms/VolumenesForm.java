@@ -150,27 +150,38 @@ public class VolumenesForm extends javax.swing.JFrame {
   }// GEN-LAST:event_cbmFigurasActionPerformed
 
   private void btnCalcularActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_btnCalcularActionPerformed
-    String figuraSeleccionada = (String) cbmFiguras.getSelectedItem();
+   
+      try{
+       String figuraSeleccionada = (String) cbmFiguras.getSelectedItem();
 
     switch (figuraSeleccionada) {
-      case "Cubo" -> {
-        double lado = Double.parseDouble(txtLado.getText());
-        v.volumenCubo(lado);
+        case "Cubo" -> {
+          double lado = Double.parseDouble(txtLado.getText());
+          v.volumenCubo(lado);
+        }
+        case "Esfera" -> {
+          double radio = Double.parseDouble(txtRadio.getText());
+          v.volumenEsfera(radio);
+        }
+        case "Cilindro" -> {
+          double radio = Double.parseDouble(txtRadio.getText());
+          double altura = Double.parseDouble(txtAltura.getText());
+          v.volumenCilindro(radio, altura);
+        }
+        default -> {
+        } 
       }
-      case "Esfera" -> {
-        double radio = Double.parseDouble(txtRadio.getText());
-        v.volumenEsfera(radio);
-      }
-      case "Cilindro" -> {
-        double radio = Double.parseDouble(txtRadio.getText());
-        double altura = Double.parseDouble(txtAltura.getText());
-        v.volumenCilindro(radio, altura);
-      }
-      default -> {
-      }
-    }
+        JOptionPane.showMessageDialog(this, "El volumen es: " + String.format("%.3f", v.getVolumen()) + " cm³");
+        txtRadio.setText("");
+        txtAltura.setText("");
+        txtLado.setText("");
 
-    JOptionPane.showMessageDialog(this, "El volumen es: " + String.format("%.3f", v.getVolumen()) + " cm³");
+     }  catch(NumberFormatException e){
+        JOptionPane.showMessageDialog(this, "Ingresa un numero valido", "Error", JOptionPane.ERROR_MESSAGE);
+        txtRadio.setText("");
+        txtAltura.setText("");
+        txtLado.setText("");
+     }
 
   }// GEN-LAST:event_btnCalcularActionPerformed
 

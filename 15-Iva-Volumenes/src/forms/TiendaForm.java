@@ -169,6 +169,9 @@ public class TiendaForm extends javax.swing.JFrame {
         try{
             if(tienda.comprar()){
                  JOptionPane.showMessageDialog(null, "Compra exitosa", "Exito", JOptionPane.INFORMATION_MESSAGE);
+                 txtCantidadPiezas.setText("");
+                 txtCantidadTotal.setText(""); 
+                 txtSubtotal.setText("");  
             }
         }catch(IllegalArgumentException e){
            JOptionPane.showMessageDialog(null, "Debes agregar un producto a la lista","Error", JOptionPane.ERROR_MESSAGE);
