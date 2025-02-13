@@ -12,7 +12,10 @@ public class VolumenesForm extends javax.swing.JFrame {
   public VolumenesForm() {
     v = new Volumenes();
     initComponents();
-    setTitle("Calcular volumenes");
+    this.setTitle("Calcular volumenes");
+    this.setSize(900, 500);
+    this.setLocationRelativeTo(null);
+    
 
     cubo.setVisible(true);
     cilindro.setVisible(false);
@@ -36,83 +39,111 @@ public class VolumenesForm extends javax.swing.JFrame {
   @SuppressWarnings("unchecked")
   // <editor-fold defaultstate="collapsed" desc="Generated
   // <editor-fold defaultstate="collapsed" desc="Generated
-  // Code">//GEN-BEGIN:initComponents
-  private void initComponents() {
+    // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
+    private void initComponents() {
 
-    cubo = new javax.swing.JLabel();
-    cilindro = new javax.swing.JLabel();
-    esfera = new javax.swing.JLabel();
-    jLabel4 = new javax.swing.JLabel();
-    cbmFiguras = new javax.swing.JComboBox<>();
-    jLabel5 = new javax.swing.JLabel();
-    labelLado = new javax.swing.JLabel();
-    txtLado = new javax.swing.JTextField();
-    btnCalcular = new javax.swing.JButton();
-    txtRadio = new javax.swing.JTextField();
-    txtAltura = new javax.swing.JTextField();
-    labelRadio = new javax.swing.JLabel();
-    labelAltura = new javax.swing.JLabel();
+        cubo = new javax.swing.JLabel();
+        cilindro = new javax.swing.JLabel();
+        esfera = new javax.swing.JLabel();
+        jLabel4 = new javax.swing.JLabel();
+        cbmFiguras = new javax.swing.JComboBox<>();
+        jLabel5 = new javax.swing.JLabel();
+        labelLado = new javax.swing.JLabel();
+        txtLado = new javax.swing.JTextField();
+        btnCalcular = new javax.swing.JButton();
+        txtRadio = new javax.swing.JTextField();
+        txtAltura = new javax.swing.JTextField();
+        labelRadio = new javax.swing.JLabel();
+        labelAltura = new javax.swing.JLabel();
+        jButton1 = new javax.swing.JButton();
+        jButton2 = new javax.swing.JButton();
 
-    setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-    getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-    cubo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/cubo.png"))); // NOI18N
-    getContentPane().add(cubo, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 110, -1, -1));
+        cubo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/cubo.png"))); // NOI18N
+        getContentPane().add(cubo, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 150, -1, -1));
 
-    cilindro.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/cilindro.png"))); // NOI18N
-    getContentPane().add(cilindro, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 110, -1, -1));
+        cilindro.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/cilindro.png"))); // NOI18N
+        getContentPane().add(cilindro, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 150, -1, -1));
 
-    esfera.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/esfera.png"))); // NOI18N
-    getContentPane().add(esfera, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 110, -1, -1));
+        esfera.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/esfera.png"))); // NOI18N
+        getContentPane().add(esfera, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 150, -1, -1));
 
-    jLabel4.setFont(new java.awt.Font("sansserif", 0, 24)); // NOI18N
-    jLabel4.setText("Cálculo de volumenes");
-    getContentPane().add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 30, -1, -1));
+        jLabel4.setFont(new java.awt.Font("sansserif", 0, 24)); // NOI18N
+        jLabel4.setText("Cálculo de volumenes");
+        getContentPane().add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 70, -1, -1));
 
-    cbmFiguras.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Cubo", "Esfera", "Cilindro", " " }));
-    cbmFiguras.addItemListener(new java.awt.event.ItemListener() {
-      public void itemStateChanged(java.awt.event.ItemEvent evt) {
-        cbmFigurasItemStateChanged(evt);
-      }
-    });
-    cbmFiguras.addActionListener(new java.awt.event.ActionListener() {
-      public void actionPerformed(java.awt.event.ActionEvent evt) {
-        cbmFigurasActionPerformed(evt);
-      }
-    });
-    getContentPane().add(cbmFiguras, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 140, 160, -1));
+        cbmFiguras.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Cubo", "Esfera", "Cilindro", " " }));
+        cbmFiguras.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                cbmFigurasItemStateChanged(evt);
+            }
+        });
+        cbmFiguras.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cbmFigurasActionPerformed(evt);
+            }
+        });
+        getContentPane().add(cbmFiguras, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 180, 160, -1));
 
-    jLabel5.setText("Selecciona la figura que quieres calcular el volumen:");
-    getContentPane().add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 110, -1, -1));
+        jLabel5.setText("Selecciona la figura que quieres calcular el volumen:");
+        getContentPane().add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 150, -1, -1));
 
-    labelLado.setText("Ingrese la medida del lado:");
-    getContentPane().add(labelLado, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 180, -1, -1));
-    getContentPane().add(txtLado, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 210, 140, -1));
+        labelLado.setText("Ingrese la medida del lado:");
+        getContentPane().add(labelLado, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 220, -1, -1));
+        getContentPane().add(txtLado, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 250, 140, -1));
 
-    btnCalcular.setText("Calcular");
-    btnCalcular.addActionListener(new java.awt.event.ActionListener() {
-      public void actionPerformed(java.awt.event.ActionEvent evt) {
-        btnCalcularActionPerformed(evt);
-      }
-    });
-    getContentPane().add(btnCalcular, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 330, -1, -1));
+        btnCalcular.setText("Calcular");
+        btnCalcular.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCalcularActionPerformed(evt);
+            }
+        });
+        getContentPane().add(btnCalcular, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 370, -1, -1));
 
-    txtRadio.addActionListener(new java.awt.event.ActionListener() {
-      public void actionPerformed(java.awt.event.ActionEvent evt) {
-        txtRadioActionPerformed(evt);
-      }
-    });
-    getContentPane().add(txtRadio, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 210, 140, -1));
-    getContentPane().add(txtAltura, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 270, 140, -1));
+        txtRadio.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtRadioActionPerformed(evt);
+            }
+        });
+        getContentPane().add(txtRadio, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 250, 140, -1));
+        getContentPane().add(txtAltura, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 310, 140, -1));
 
-    labelRadio.setText("Ingrese el radio:");
-    getContentPane().add(labelRadio, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 180, -1, -1));
+        labelRadio.setText("Ingrese el radio:");
+        getContentPane().add(labelRadio, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 220, -1, -1));
 
-    labelAltura.setText("Ingrese la altura:");
-    getContentPane().add(labelAltura, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 240, -1, -1));
+        labelAltura.setText("Ingrese la altura:");
+        getContentPane().add(labelAltura, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 280, -1, -1));
 
-    pack();
-  }// </editor-fold>//GEN-END:initComponents
+        jButton1.setText("Salir");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+        getContentPane().add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 370, -1, -1));
+
+        jButton2.setText("Regresar");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
+        getContentPane().add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 370, -1, -1));
+
+        pack();
+    }// </editor-fold>//GEN-END:initComponents
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        System.exit(0);
+    }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        Menu menu = new Menu();
+        menu.setVisible(true);
+        this.setVisible(false);
+    }//GEN-LAST:event_jButton2ActionPerformed
 
   private void cbmFigurasActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_cbmFigurasActionPerformed
 
@@ -227,19 +258,21 @@ public class VolumenesForm extends javax.swing.JFrame {
     });
   }
 
-  // Variables declaration - do not modify//GEN-BEGIN:variables
-  private javax.swing.JButton btnCalcular;
-  private javax.swing.JComboBox<String> cbmFiguras;
-  private javax.swing.JLabel cilindro;
-  private javax.swing.JLabel cubo;
-  private javax.swing.JLabel esfera;
-  private javax.swing.JLabel jLabel4;
-  private javax.swing.JLabel jLabel5;
-  private javax.swing.JLabel labelAltura;
-  private javax.swing.JLabel labelLado;
-  private javax.swing.JLabel labelRadio;
-  private javax.swing.JTextField txtAltura;
-  private javax.swing.JTextField txtLado;
-  private javax.swing.JTextField txtRadio;
-  // End of variables declaration//GEN-END:variables
+    // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnCalcular;
+    private javax.swing.JComboBox<String> cbmFiguras;
+    private javax.swing.JLabel cilindro;
+    private javax.swing.JLabel cubo;
+    private javax.swing.JLabel esfera;
+    private javax.swing.JButton jButton1;
+    private javax.swing.JButton jButton2;
+    private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel labelAltura;
+    private javax.swing.JLabel labelLado;
+    private javax.swing.JLabel labelRadio;
+    private javax.swing.JTextField txtAltura;
+    private javax.swing.JTextField txtLado;
+    private javax.swing.JTextField txtRadio;
+    // End of variables declaration//GEN-END:variables
 }
