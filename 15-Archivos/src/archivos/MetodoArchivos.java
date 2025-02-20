@@ -63,6 +63,67 @@ public class MetodoArchivos {
  }
 
 
+  public boolean buscar(String nameToSearch, String codigo){
+      boolean encontrado = false;
+      String nameLibro = null, categoria = null, editorial = null, codigoActual = null;
+      
+      File f;
+      FileReader fr;
+      BufferedReader br;
+    
+      JOptionPane.showMessageDialog(null,"Buscando en el archvio ...");
+        
+      try{
+          f = new File(nameToSearch);
+          fr= new FileReader(f);
+          br = new BufferedReader(fr);
+          
+          String linea = br.readLine();
+          
+          codigoActual=linea;
+          
+          if(codigoActual.equals (codigo)){
+              linea = br.readLine();
+              nameLibro=linea;
+              
+              linea = br.readLine();
+              categoria = linea;
+              
+              linea = br.readLine();
+              editorial = linea;
+              encontrado = true;
+     
+          } 
+          
+          while(linea != null && encontrado == false){
+              linea = br.readLine();
+              
+              codigoActual = linea;
+              
+             if(codigoActual.equals(codigo)){
+                 linea = br.readLine();
+                 nameLibro=linea;
+                 
+                 linea = br.readLine();
+                 categoria = linea;
+                 
+                 linea = br.readLine();
+                 editorial = linea;
+                 
+                 encontrado=true;   
+             }
+          }
+          
+         br.close();
+         fr.close();
+         
+      }catch(IOException e) {
+          JOptionPane.showMessageDialog(null, "Ocurrio un error");
+      }
+      
+      return encontrado;
+  }
+  
   public void anexarDatos(String nameArchivo){
       File archivo;
       FileWriter escribir;

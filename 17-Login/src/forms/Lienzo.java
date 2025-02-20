@@ -1,5 +1,6 @@
 package forms;
 import java.awt.Graphics;
+import figura.Figura;
 
 public class Lienzo extends javax.swing.JFrame {
     public Lienzo() {
