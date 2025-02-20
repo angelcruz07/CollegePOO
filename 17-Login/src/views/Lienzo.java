@@ -1,4 +1,4 @@
-package forms;
+package views;
 import java.awt.Graphics;
 import figura.Figura;
 

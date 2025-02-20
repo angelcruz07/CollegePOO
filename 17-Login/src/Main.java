@@ -1,5 +1,5 @@
 import java.io.*;
-import forms.LoginFrm;
+import views.LoginFrm;
 
 public class Main {
 

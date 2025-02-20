@@ -1,4 +1,4 @@
-package forms;
+package views;
 
 public class RegisterFrm extends javax.swing.JFrame {
 

@@ -1,5 +1,5 @@
-package forms;
-import login.Login;
+package views;
+import models.Login;
 import javax.swing.JOptionPane;
 
 public class LoginFrm extends javax.swing.JFrame {
