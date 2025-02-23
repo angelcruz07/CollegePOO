@@ -1,67 +1,75 @@
 package models;
 import java.io.*;
-import javax.swing.*;
-
-import javax.swing.JOptionPane;
 
 public class Login {
     private String  user;
     private String password;
 
-    private String USERS_ROUTE = "C:\\Users\\Angel\\IdeaProjects\\POO\\17-Login\\src\\database\\users.txt";
+    // Cambia esta variable con la ruta al directorio del users.txt
+    private String USERS_ROUTE;
 
-    public void Login(){
+    public Login(String USERS_ROUTE){
+        this.USERS_ROUTE = USERS_ROUTE;
     }
 
-    public boolean login(String user, String password){
+    public Response login(String user, String password){
+        if(user.isEmpty() && password.isEmpty()) {
+            return new Response(false, "Usuario y contraseña no pueden estar vacios, intenta de nuevo");
+        } else if(!userExist(user).ok){
+            return new  Response(false, "Usuario no registrado");
+        }
+
       try (BufferedReader br = new BufferedReader(new FileReader(USERS_ROUTE))) {
             String line;
+
             while ((line = br.readLine()) != null) {
                 String storedUser = line.trim();
                 String storedPassword = br.readLine().trim();
      
                 if (storedUser.equals(user) && storedPassword.equals(password)) {
-                    return true;
+                   return  new Response(true, "Usuario logueado exitosamente");
                 }
             }
-        } catch (IOException e) {
-            JOptionPane.showMessageDialog(null, "Error leyendo el archivo");
-        }
-        
-        JOptionPane.showMessageDialog(null, "Usuario o contraseña incorrectos");
-        return false;
 
+        } catch (IOException e) {
+           return new Response(false, "Error inesperado");
+        }
+
+        return new Response(false, "Credenciales incorrectas");
     }
 
-    public void register(){
+    public Response register(String user, String password){
+         if (user.isEmpty() && password.isEmpty())
+             return new Response(false, "Usuario y contraseña no pueden esta vacios");
+         
          try (BufferedWriter bw = new BufferedWriter(new FileWriter(USERS_ROUTE, true))) {
-            if (userExist(user)) {
-                JOptionPane.showMessageDialog(null, "El usuario ya existe");
-                return;
+            if (userExist(user).ok) {
+                return new Response(false, "Usuario ya registrado");
             }
+
             bw.write(user);
             bw.newLine();
             bw.write(password);
             bw.newLine();
-            JOptionPane.showMessageDialog(null, "Usuario registrado con éxito");
-        } catch (IOException e) {
-            JOptionPane.showMessageDialog(null, "Error al registrar el usuario");
-        }
+            return new Response(true, "Usuario registrado exitosamente");
 
+        } catch (IOException e) {
+             return new Response(false,"Ocurrio un error al registrar el usuario, intenta de nuevo");
+        }
     }
 
-    private boolean userExist(String user) {
+    private Response userExist(String user) {
         try (BufferedReader br = new BufferedReader(new FileReader(USERS_ROUTE))) {  
             String line;
             while ((line = br.readLine()) != null) {
                 if (line.equals(user)) {
-                    return true;
+                    return new Response(true, "Usuario encontrado");
                 }
                 br.readLine();
             }
         } catch (IOException e) {
-            JOptionPane.showMessageDialog(null, "Error leyendo el archivo");
+            return new Response(false, "Error inesperado");
         }
-        return false;
+        return new Response(false, "Usuario no registrado");
     }
 }

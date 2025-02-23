@@ -5,7 +5,9 @@ import figura.Figura;
 public class Lienzo extends javax.swing.JFrame {
     public Lienzo() {
         initComponents();
-        setTitle("Pista de baile");
+        this.setTitle("Circulos de colores");
+        this.setLocationRelativeTo(null);
+        this.setSize(500, 500);
     }
 
     @SuppressWarnings("unchecked")
@@ -13,6 +15,7 @@ public class Lienzo extends javax.swing.JFrame {
     private void initComponents() {
 
         btnDraw = new javax.swing.JButton();
+        jLabel1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -23,26 +26,36 @@ public class Lienzo extends javax.swing.JFrame {
             }
         });
 
+        jLabel1.setFont(new java.awt.Font("Iosevka NFM", 0, 18)); // NOI18N
+        jLabel1.setText("Circulos de colores");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(223, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap(171, Short.MAX_VALUE)
+                .addComponent(jLabel1)
+                .addGap(158, 158, 158))
+            .addGroup(layout.createSequentialGroup()
+                .addGap(213, 213, 213)
                 .addComponent(btnDraw)
-                .addGap(205, 205, 205))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(436, Short.MAX_VALUE)
+                .addGap(21, 21, 21)
+                .addComponent(jLabel1)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 410, Short.MAX_VALUE)
                 .addComponent(btnDraw)
-                .addGap(41, 41, 41))
+                .addGap(22, 22, 22))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    //This method generate a grid to 9 circles in the center
     public void generateCircles() {
         Figura figura = new Figura();
         Graphics graphic = this.getGraphics();
@@ -81,5 +94,6 @@ public class Lienzo extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnDraw;
+    private javax.swing.JLabel jLabel1;
     // End of variables declaration//GEN-END:variables
 }
