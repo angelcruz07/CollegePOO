@@ -3,7 +3,6 @@ package archivos;
 import java.io.*;
 import javax.swing.JOptionPane;
 
-
 public class MetodoArchivos {
     
     public MetodoArchivos(){
